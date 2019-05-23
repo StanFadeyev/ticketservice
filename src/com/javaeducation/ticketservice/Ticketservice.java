@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Ticketservice {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         Scanner ticketData = new Scanner(System.in);
         System.out.println("Enter command: ");
