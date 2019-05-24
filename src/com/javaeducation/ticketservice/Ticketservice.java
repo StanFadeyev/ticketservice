@@ -14,7 +14,6 @@ public class Ticketservice {
             case ADD: {
                 String[] substr = data.substring(3).trim().split(",");
 //                System.out.println("this is add");
-
                 break;
             }
             case UPDATE:

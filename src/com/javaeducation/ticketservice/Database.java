@@ -7,5 +7,4 @@ import java.util.ArrayList;
 public class Database {
     ArrayList <Storage> database = new ArrayList<>();
 
-
 }
