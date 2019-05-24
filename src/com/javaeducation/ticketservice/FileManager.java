@@ -7,7 +7,7 @@ import java.io.*;
 
 public class FileManager {
 
-    public void FileWriter () {
+    public void Writer () {
         try {
             FileWriter writer = new FileWriter("output.txt", true);
             BufferedWriter bufferWriter = new BufferedWriter(writer);
