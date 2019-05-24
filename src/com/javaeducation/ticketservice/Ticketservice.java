@@ -11,9 +11,11 @@ public class Ticketservice {
         String data = ticketData.nextLine();
 
         switch (Command.getCommand(data)) {
-            case ADD:
-                System.out.println("this is add");
+            case ADD: {
+                String[] substr = data.substring(3).trim().split(",");
+//                System.out.println("this is add");
                 break;
+            }
             case UPDATE:
                 System.out.println("this is update");
                 break;
