@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Ticketservice {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args)  {
 
         Scanner ticketData = new Scanner(System.in);
         System.out.println("Enter command: ");
@@ -12,10 +12,11 @@ public class Ticketservice {
 
         switch (Command.getCommand(data)) {
             case ADD:
-                System.out.println("this is add");
+
+//                System.out.println(Command.ADD.arguments);
                 break;
             case UPDATE:
-                System.out.println("this is update");
+//                System.out.println("this is update");
                 break;
             case DELETE:
                 System.out.println("this is delete");
@@ -30,7 +31,8 @@ public class Ticketservice {
                 System.out.println("this is exit");
                 break;
             case DEFAULT:
-                System.out.println("this is peace of sh#t");
+                System.out.println(Command.DEFAULT.arguments);
+
                 break;
 
         }
