@@ -5,7 +5,6 @@ package com.javaeducation.ticketservice;
 import java.util.ArrayList;
 
 public class Database {
-
-    ArrayList<Object> database = new ArrayList<>();
+    ArrayList <Storage> database = new ArrayList<>();
 
 }

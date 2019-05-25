@@ -4,19 +4,20 @@ import java.util.Scanner;
 
 public class Ticketservice {
 
-    public static void main(String[] args)  {
+    public static void main(String[] args) throws Exception {
 
         Scanner ticketData = new Scanner(System.in);
         System.out.println("Enter command: ");
         String data = ticketData.nextLine();
 
         switch (Command.getCommand(data)) {
-            case ADD:
-
-//                System.out.println(Command.ADD.arguments);
+            case ADD: {
+                String[] substr = data.substring(3).trim().split(",");
+//                System.out.println("this is add");
                 break;
+            }
             case UPDATE:
-//                System.out.println("this is update");
+                System.out.println("this is update");
                 break;
             case DELETE:
                 System.out.println("this is delete");
@@ -31,8 +32,7 @@ public class Ticketservice {
                 System.out.println("this is exit");
                 break;
             case DEFAULT:
-                System.out.println(Command.DEFAULT.arguments);
-
+                System.out.println("this is peace of sh#t");
                 break;
 
         }
