@@ -1,8 +1,11 @@
 package com.javaeducation.ticketservice;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Ticketservice {
+
+    private static Database ordersDatabase = new Database();
 
     public static void main(String[] args) throws Exception {
 
@@ -15,9 +18,17 @@ public class Ticketservice {
             switch (Command.getCommand(data)) {
                 case ADD: {
                     String[] substr = data.substring(3).trim().split(",");
-                    Database example = new Database();
-                    System.out.println(example.id + " " + example.add(substr));
-                    System.out.println("Enter command: ");
+                    if (substr.length != 4) throw new IOException("Need 4 params only!");
+
+                    Order myObj = new Order(
+                            substr[0],
+                            substr[1],
+                            substr[2],
+                            substr[3]
+                    );
+                   String orderToFile = ordersDatabase.add(myObj);
+
+                System.out.println("Enter command: ");
                     data = ticketData.nextLine();
 //                System.out.println("this is add");
                     break;
@@ -34,22 +45,21 @@ public class Ticketservice {
                 case SHOWALL:
                     System.out.println("this is showAll");
                     break;
- /*               case EXIT:
+/*                case EXIT:
                     System.out.println("this is exit");
-                    break;
-                case DEFAULT:
-                    System.out.println("this is peace of sh#t");
                     break;*/
+                case DEFAULT:
+                    System.out.println(Command.DEFAULT.arguments);
+                    break;
+
 
             }
-           // wrong code hereinafter - need rework Command enum
-            if (data.equalsIgnoreCase("exit")) {
-                System.out.println((Command.getCommand(data).arguments));
+            return;
+        }
+        if (data.equalsIgnoreCase("exit")) {
+            System.out.println(Command.getCommand("exit").arguments);
 
-            } else
-                System.out.println((Command.getCommand(data).arguments));
-
-            }
+        }
         ticketData.close();
     }
 }
