@@ -41,12 +41,13 @@ public class Ticketservice {
                     System.out.println("this is delete");
                     break;
                 case SHOW:
-                    String [] substr = data.substring(4).trim().split(" ");
-                    String idSubstr = substr [0];
-
-
-
-
+                    String[] substr = data.substring(4).trim().split(" ");
+                    String idSubstr = substr[0];
+                    if (ordersDatabase.checkId(idSubstr)) {
+                        ordersDatabase.showId(idSubstr);
+                    } else {
+                        System.out.println("Wrong id");
+                    }
                     break;
                 case SHOWALL:
                     System.out.println("this is showAll");
