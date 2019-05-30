@@ -16,7 +16,6 @@ public class Order {
         this.raceNumber = raceNumber;
     }
 
-
     public void setId(String id) {
         this.id = id;
     }

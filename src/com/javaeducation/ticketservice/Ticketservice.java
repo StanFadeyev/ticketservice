@@ -6,13 +6,13 @@ import java.util.Scanner;
 public class Ticketservice {
 
     private static Database ordersDatabase = new Database();
+    private static FileManager fileManager = new FileManager();
 
     public static void main(String[] args) throws Exception {
 
         Scanner ticketData = new Scanner(System.in);
-//        System.out.println("Enter command: ");
         String data = "";
-
+// TODO: переделать на do while Кургин
         while (!data.equalsIgnoreCase("exit")) {
 
             System.out.println("Enter command: ");
@@ -29,32 +29,49 @@ public class Ticketservice {
                             substr[3]
                     );
                     String orderToFile = ordersDatabase.add(myObj);
-                    FileManager fileManager = new FileManager();
                     fileManager.writer(orderToFile);
                     System.out.println("Order has been created!");
                     break;
                 }
-                case UPDATE:
-                    System.out.println("this is update");
+                // TODO: скобки после break или до?
+
+                case UPDATE: {
+                    String[] substr = data.substring(5).trim().split(",");
+                    if (substr.length != 5) throw new IOException("Need 5 params only!");
+                    String idSubstr = substr[0];
+                    if (ordersDatabase.checkId(idSubstr)) throw new IOException("Wrong id!");
+                    Order myObj = new Order(
+                            substr[1],
+                            substr[2],
+                            substr[3],
+                            substr[4]
+                    );
+                    String orderToFile = ordersDatabase.putValue(idSubstr, myObj);
+                    fileManager.writer(orderToFile);
+                    System.out.println("Order has been updated!");
                     break;
-                case DELETE:
+                }
+                case DELETE: {
+                    // TODO: удалить и ключ и занчение
                     System.out.println("this is delete");
                     break;
-                case SHOW:
+                }
+                case SHOW: {
                     String[] substr = data.substring(4).trim().split(" ");
                     String idSubstr = substr[0];
-                    if (ordersDatabase.checkId(idSubstr)) {
-                        ordersDatabase.showId(idSubstr);
-                    } else {
-                        System.out.println("Wrong id");
-                    }
+                    if (ordersDatabase.checkId(idSubstr)) throw new IOException("Wrong id!");
+                    String orderToFile = ordersDatabase.showValue(idSubstr);
+                    fileManager.writer(orderToFile);
                     break;
-                case SHOWALL:
-                    System.out.println("this is showAll");
+                }
+                case SHOWALL: {
+                    // TODO: entrySet method
                     break;
-                case DEFAULT:
+                }
+                case DEFAULT: {
                     System.out.println(Command.DEFAULT.arguments);
                     break;
+                }
             }
 
         }

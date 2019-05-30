@@ -7,8 +7,6 @@ import java.util.UUID;
 public class Database {
     private Map<String, Order> db = new HashMap<>();
 
-//    private ArrayList<String> orderIds = new ArrayList<>();
-
     private String getUniqId() {
         String id = UUID.randomUUID().toString();
         while (!db.containsKey(id)) {
@@ -16,6 +14,16 @@ public class Database {
         }
         return id;
     }
+
+    //TODO: что должен возвращать метод entrySet?
+
+    /*public static String entrySet (Map<String, Order> db) {
+        for (Map.Entry<String, Order> entry : db.entrySet()) {
+            String id = entry.getKey();
+            Order order = entry.getValue();
+        }
+        return ;
+    }*/
 
     public String add(Order order) {
 
@@ -30,14 +38,19 @@ public class Database {
         return db.containsKey(id);
     }
 
-    public String showId(String showOrder) {
-        db.get(showOrder);
-        return showOrder;
+    public String showValue(String id) {
+
+        return db.get(id).toString();
     }
 
-   /* public String show (Order order) {
-        order.setId();
+    public  String putValue (String id, Order order) {
 
-    }*/
+        order.setId(id);
+        db.put(id, order);
+        return order.toString();
+    }
+// TODO: удаление ключ-значения из мапы выполнять через Итератор
+
+
 
 }
