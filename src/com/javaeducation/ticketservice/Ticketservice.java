@@ -49,19 +49,13 @@ public class Ticketservice {
                 case SHOWALL:
                     System.out.println("this is showAll");
                     break;
-/*                case EXIT:
-                    System.out.println("this is exit");
-                    break;*/
                 case DEFAULT:
                     System.out.println(Command.DEFAULT.arguments);
                     break;
             }
 
         }
-//        if (data.equalsIgnoreCase("exit")) {
-//            System.out.println(Command.getCommand("exit").arguments);
-//
-//        }
+
         ticketData.close();
     }
 }

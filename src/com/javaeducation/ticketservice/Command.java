@@ -1,7 +1,7 @@
 package com.javaeducation.ticketservice;
 
 public enum Command {
-    ADD, UPDATE, DELETE, SHOW, SHOWALL, EXIT, DEFAULT;
+    ADD, UPDATE, DELETE, SHOW, SHOWALL, DEFAULT;
     String arguments = "";
 
     static Command getCommand (String str) {
@@ -25,10 +25,6 @@ public enum Command {
             Command cmd5 = SHOWALL;
             cmd5.arguments = "showAll";
             return cmd5;
-        } else if (str.startsWith("exit")) {
-            Command cmd6 = EXIT;
-            cmd6.arguments = "I'm finished and light up a cigarette!";
-            return cmd6;
         } else {
             Command cmd7 = DEFAULT;
             cmd7.arguments = "Wrong command. I'm tired, I'm leaving!";
