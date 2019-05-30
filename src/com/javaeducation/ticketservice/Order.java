@@ -15,9 +15,12 @@ public class Order {
         this.date = date;
         this.raceNumber = raceNumber;
     }
-    public void setId (String id) {
+
+
+    public void setId(String id) {
         this.id = id;
     }
+
 
 
     //  toString() нужен для вывода читабельных параметров объекта, а не ссылки на объект

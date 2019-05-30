@@ -31,10 +31,7 @@ public class Ticketservice {
                     String orderToFile = ordersDatabase.add(myObj);
                     FileManager fileManager = new FileManager();
                     fileManager.writer(orderToFile);
-
-//                System.out.println("Enter command: ");
-//                    data = ticketData.nextLine();
-//                System.out.println("this is add");
+                    System.out.println("Order has been created!");
                     break;
                 }
                 case UPDATE:
@@ -44,7 +41,12 @@ public class Ticketservice {
                     System.out.println("this is delete");
                     break;
                 case SHOW:
-                    System.out.println("this is show");
+                    String [] substr = data.substring(4).trim().split(" ");
+                    String idSubstr = substr [0];
+
+
+
+
                     break;
                 case SHOWALL:
                     System.out.println("this is showAll");
