@@ -7,10 +7,11 @@ import java.io.*;
 
 public class FileManager {
 
-    public void Writer () {
+    public void writer (String text) throws IOException {
         try {
             FileWriter writer = new FileWriter("output.txt", true);
             BufferedWriter bufferWriter = new BufferedWriter(writer);
+            bufferWriter.write(text);
             bufferWriter.close();
         } catch (IOException e) {
             e.printStackTrace();

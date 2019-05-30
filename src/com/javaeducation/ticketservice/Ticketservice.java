@@ -10,11 +10,13 @@ public class Ticketservice {
     public static void main(String[] args) throws Exception {
 
         Scanner ticketData = new Scanner(System.in);
-        System.out.println("Enter command: ");
-        String data = ticketData.nextLine();
+//        System.out.println("Enter command: ");
+        String data = "";
 
         while (!data.equalsIgnoreCase("exit")) {
 
+            System.out.println("Enter command: ");
+            data = ticketData.nextLine().trim();
             switch (Command.getCommand(data)) {
                 case ADD: {
                     String[] substr = data.substring(3).trim().split(",");
@@ -26,10 +28,12 @@ public class Ticketservice {
                             substr[2],
                             substr[3]
                     );
-                   String orderToFile = ordersDatabase.add(myObj);
+                    String orderToFile = ordersDatabase.add(myObj);
+                    FileManager fileManager = new FileManager();
+                    fileManager.writer(orderToFile);
 
-                System.out.println("Enter command: ");
-                    data = ticketData.nextLine();
+//                System.out.println("Enter command: ");
+//                    data = ticketData.nextLine();
 //                System.out.println("this is add");
                     break;
                 }
@@ -51,15 +55,13 @@ public class Ticketservice {
                 case DEFAULT:
                     System.out.println(Command.DEFAULT.arguments);
                     break;
-
-
             }
-            return;
-        }
-        if (data.equalsIgnoreCase("exit")) {
-            System.out.println(Command.getCommand("exit").arguments);
 
         }
+//        if (data.equalsIgnoreCase("exit")) {
+//            System.out.println(Command.getCommand("exit").arguments);
+//
+//        }
         ticketData.close();
     }
 }
