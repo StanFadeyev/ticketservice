@@ -33,8 +33,6 @@ public class Ticketservice {
                     System.out.println("Order has been created!");
                     break;
                 }
-                // TODO: скобки после break или до?
-
                 case UPDATE: {
                     String[] substr = data.substring(5).trim().split(",");
                     if (substr.length != 5) throw new IOException("Need 5 params only!");
@@ -52,12 +50,16 @@ public class Ticketservice {
                     break;
                 }
                 case DELETE: {
-                    // TODO: удалить и ключ и занчение
-                    System.out.println("this is delete");
+                    String[] substr = data.substring(5).trim().split(",");
+                    String idSubstr = substr[0];
+                    if (ordersDatabase.checkId(idSubstr)) throw new IOException("Wrong id!");
+                    String orderToFile = ordersDatabase.deleteValue(idSubstr);
+                    fileManager.writer(orderToFile);
+                    System.out.println("Order has been deleted!");
                     break;
-                }
+                    }
                 case SHOW: {
-                    String[] substr = data.substring(4).trim().split(" ");
+                    String[] substr = data.substring(4).trim().split(",");
                     String idSubstr = substr[0];
                     if (ordersDatabase.checkId(idSubstr)) throw new IOException("Wrong id!");
                     String orderToFile = ordersDatabase.showValue(idSubstr);
@@ -65,7 +67,7 @@ public class Ticketservice {
                     break;
                 }
                 case SHOWALL: {
-                    // TODO: entrySet method
+                    fileManager.writer(ordersDatabase.getAll().toString());
                     break;
                 }
                 case DEFAULT: {

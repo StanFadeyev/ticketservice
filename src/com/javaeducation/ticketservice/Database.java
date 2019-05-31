@@ -1,29 +1,23 @@
 package com.javaeducation.ticketservice;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class Database {
     private Map<String, Order> db = new HashMap<>();
 
     private String getUniqId() {
         String id = UUID.randomUUID().toString();
-        while (!db.containsKey(id)) {
+        while (db.containsKey(id)) {
             id = UUID.randomUUID().toString();
         }
         return id;
     }
 
-    //TODO: что должен возвращать метод entrySet?
-
-    /*public static String entrySet (Map<String, Order> db) {
-        for (Map.Entry<String, Order> entry : db.entrySet()) {
-            String id = entry.getKey();
-            Order order = entry.getValue();
-        }
-        return ;
-    }*/
+    public StringBuilder getAll() {
+        StringBuilder builder = new StringBuilder();
+        db.values().forEach(builder::append);
+        return builder;
+    }
 
     public String add(Order order) {
 
@@ -32,6 +26,10 @@ public class Database {
         db.put(id, order);
         return order.toString();
     }
+    public String deleteValue (String id) {
+        return db.remove(id).toString();
+    }
+
 
     public boolean checkId(String id) {
 
@@ -49,8 +47,4 @@ public class Database {
         db.put(id, order);
         return order.toString();
     }
-// TODO: удаление ключ-значения из мапы выполнять через Итератор
-
-
-
 }
