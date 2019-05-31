@@ -11,12 +11,10 @@ public class Ticketservice {
     public static void main(String[] args) throws Exception {
 
         Scanner ticketData = new Scanner(System.in);
-        String data = "";
-// TODO: переделать на do while Кургин
-        while (!data.equalsIgnoreCase("exit")) {
-
+        readLoop:
+        do {
             System.out.println("Enter command: ");
-            data = ticketData.nextLine().trim();
+            String data = ticketData.nextLine().trim();
             switch (Command.getCommand(data)) {
                 case ADD: {
                     String[] substr = data.substring(3).trim().split(",");
@@ -67,8 +65,17 @@ public class Ticketservice {
                     break;
                 }
                 case SHOWALL: {
-                    fileManager.writer(ordersDatabase.getAll().toString());
+                    String result = ordersDatabase.getAll().toString();
+                    if (result.length() == 0) {
+                        fileManager.writer("Database is empty!");
+                    } else {
+                        fileManager.writer(result);
+                    }
                     break;
+                }
+                case EXIT: {
+                    System.out.println(Command.EXIT.arguments);
+                    break readLoop;
                 }
                 case DEFAULT: {
                     System.out.println(Command.DEFAULT.arguments);
@@ -76,8 +83,7 @@ public class Ticketservice {
                 }
             }
 
-        }
-
+        } while (true);
         ticketData.close();
     }
 }
