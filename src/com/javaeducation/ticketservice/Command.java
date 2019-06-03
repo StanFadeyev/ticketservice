@@ -17,15 +17,15 @@ public enum Command {
             Command cmd3 = DELETE;
             cmd3.arguments = "delete";
             return cmd3;
-        } else if (str.startsWith("show")) {
-            Command cmd4 = SHOW;
-            cmd4.arguments = "show";
-            return cmd4;
-        } else if (str.startsWith("showAll")) {
+        }else if (str.startsWith("showAll")) {
             Command cmd5 = SHOWALL;
             cmd5.arguments = "showAll";
             return cmd5;
-        }else if (str.startsWith("exit")) {
+        }else if (str.startsWith("show")) {
+            Command cmd4 = SHOW;
+            cmd4.arguments = "show";
+            return cmd4;
+        } else if (str.startsWith("exit")) {
                 Command cmd6 = EXIT;
                 cmd6.arguments = "exit";
                 return cmd6;

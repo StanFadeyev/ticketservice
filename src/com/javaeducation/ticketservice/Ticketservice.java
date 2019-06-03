@@ -1,9 +1,6 @@
 package com.javaeducation.ticketservice;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class Ticketservice {
 
@@ -20,20 +17,23 @@ public class Ticketservice {
             switch (Command.getCommand(data)) {
                 case ADD: {
                     String[] input = data.substring(3).trim().split(",");
-                    //эта кургинская хрень делает трим по элементам массива //TODO Нина, как это можно переписать под массив? Я не понимаю
-                    List<String> substr =  Arrays.asList(input).stream().map(s -> s.trim() ).collect(Collectors.toList());
-                    if (substr.size() != 4) //throw new IOException("Need 4 params only!\n");
+                    //Kurgin-style: делает трим по элементам массива //
+  //                  List<String> substr =  Arrays.asList(input).stream().map(s -> s.trim() ).collect(Collectors.toList());
+                    if (input.length != 4) //throw new IOException("Need 4 params only!\n");
                     {System.out.println("Need 4 params only!\n");
                         String error = "Need 4 params only!\n";
                         fileManager.writer(error);
                         break;
                     } else {
 
+                        for (int i = 0; i < 4; i++)
+                            input [i] = input[i].trim();
+
                         Order myObj = new Order(
-                                substr.get(0),
-                                substr.get(1),
-                                substr.get(2),
-                                substr.get(3)
+                                input [0],
+                                input [1],
+                                input [2],
+                                input [3]
                         );
                         String orderToFile = ordersDatabase.add(myObj);
                         fileManager.writer(orderToFile);
@@ -86,10 +86,11 @@ public class Ticketservice {
                         break;
                     }
                 }
-                case SHOWALL: {
+                case SHOWALL: { //TODO: не работает, разобраться
                     String result = ordersDatabase.getAll().toString();
                     if (result.length() == 0) {
                         fileManager.writer("Database is empty!");
+                        System.out.println("Database is empty!");
                     } else {
                         fileManager.writer(result);
                     }
