@@ -21,11 +21,10 @@ public class Order {
     }
 
 
-
     //  toString() нужен для вывода читабельных параметров объекта, а не ссылки на объект
     @Override
     public String toString() {
-        return id + ", " + city + ", " + raceNumber + ", " + ownerName + ", " + date + "\n";
+        return id + "," + city + "," + raceNumber + "," + ownerName + "," + date + "\n";
     }
 
 

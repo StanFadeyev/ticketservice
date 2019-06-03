@@ -1,7 +1,9 @@
 package com.javaeducation.ticketservice;
 
-import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Ticketservice {
 
@@ -17,52 +19,72 @@ public class Ticketservice {
             String data = ticketData.nextLine().trim();
             switch (Command.getCommand(data)) {
                 case ADD: {
-                    String[] substr = data.substring(3).trim().split(",");
-                    if (substr.length != 4) throw new IOException("Need 4 params only!");
+                    String[] input = data.substring(3).trim().split(",");
+                    //эта кургинская хрень делает трим по элементам массива //TODO Нина, как это можно переписать под массив? Я не понимаю
+                    List<String> substr =  Arrays.asList(input).stream().map(s -> s.trim() ).collect(Collectors.toList());
+                    if (substr.size() != 4) //throw new IOException("Need 4 params only!\n");
+                    {System.out.println("Need 4 params only!\n");
+                        String error = "Need 4 params only!\n";
+                        fileManager.writer(error);
+                        break;
+                    } else {
 
-                    Order myObj = new Order(
-                            substr[0],
-                            substr[1],
-                            substr[2],
-                            substr[3]
-                    );
-                    String orderToFile = ordersDatabase.add(myObj);
-                    fileManager.writer(orderToFile);
-                    System.out.println("Order has been created!");
+                        Order myObj = new Order(
+                                substr.get(0),
+                                substr.get(1),
+                                substr.get(2),
+                                substr.get(3)
+                        );
+                        String orderToFile = ordersDatabase.add(myObj);
+                        fileManager.writer(orderToFile);
+                        System.out.println("Order has been created!\n");
+                    }
                     break;
                 }
                 case UPDATE: {
-                    String[] substr = data.substring(5).trim().split(",");
-                    if (substr.length != 5) throw new IOException("Need 5 params only!");
+                    String[] substr = data.substring(6).trim().split(",");
+                    if (substr.length != 5) //throw new IOException("Need 5 params only!");
+                    {
+                        System.out.println("Need 5 params only!\n");
+                        String error = "Need 5 params only!\n";
+                        fileManager.writer(error);
+                        break;
+                    }
                     String idSubstr = substr[0];
-                    if (ordersDatabase.checkId(idSubstr)) throw new IOException("Wrong id!");
-                    Order myObj = new Order(
-                            substr[1],
-                            substr[2],
-                            substr[3],
-                            substr[4]
-                    );
-                    String orderToFile = ordersDatabase.putValue(idSubstr, myObj);
-                    fileManager.writer(orderToFile);
-                    System.out.println("Order has been updated!");
+                    if (!ordersDatabase.checkId(idSubstr)) //throw new IOException("Wrong id!");
+                    {
+                        System.out.println("id does not exist, please enter a valid id! \n");
+                        String error = "id does not exist, please enter a valid id! \n";
+                        fileManager.writer(error);
+                        break;
+                    } else {
+                        Order myObj = new Order(
+                                substr[1],
+                                substr[2],
+                                substr[3],
+                                substr[4]
+                        );
+                        String orderToFile = ordersDatabase.putValue(idSubstr, myObj);
+                        fileManager.writer(orderToFile);
+                        System.out.println("Order has been updated!");
+                    }
                     break;
                 }
                 case DELETE: {
-                    String[] substr = data.substring(5).trim().split(",");
+                    String[] substr = data.substring(6).trim().split(",");
                     String idSubstr = substr[0];
-                    if (ordersDatabase.checkId(idSubstr)) throw new IOException("Wrong id!");
-                    String orderToFile = ordersDatabase.deleteValue(idSubstr);
-                    fileManager.writer(orderToFile);
-                    System.out.println("Order has been deleted!");
-                    break;
+                    if (!ordersDatabase.checkId(idSubstr)) //throw new IOException("Wrong id!");
+                    {
+                        System.out.println("id does not exist, please enter a valid id! \n");
+                        String error = "id does not exist, please enter a valid id! \n";
+                        fileManager.writer(error);
+                        break;
+                    } else {
+                        String orderToFile = ordersDatabase.deleteValue(idSubstr);
+                        fileManager.writer(orderToFile);
+                        System.out.println("Order has been deleted!");
+                        break;
                     }
-                case SHOW: {
-                    String[] substr = data.substring(4).trim().split(",");
-                    String idSubstr = substr[0];
-                    if (ordersDatabase.checkId(idSubstr)) throw new IOException("Wrong id!");
-                    String orderToFile = ordersDatabase.showValue(idSubstr);
-                    fileManager.writer(orderToFile);
-                    break;
                 }
                 case SHOWALL: {
                     String result = ordersDatabase.getAll().toString();
@@ -70,6 +92,16 @@ public class Ticketservice {
                         fileManager.writer("Database is empty!");
                     } else {
                         fileManager.writer(result);
+                    }
+                    break;
+                }
+                case SHOW: {
+                    String[] substr = data.substring(4).trim().split(",");
+                    String idSubstr = substr[0];
+                    if (ordersDatabase.checkId(idSubstr)) //throw new IOException("Wrong id!");
+                    {
+                        String orderToFile = ordersDatabase.showValue(idSubstr);
+                        fileManager.writer(orderToFile);
                     }
                     break;
                 }
