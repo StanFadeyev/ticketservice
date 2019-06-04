@@ -18,22 +18,23 @@ public class Ticketservice {
                 case ADD: {
                     String[] input = data.substring(3).trim().split(",");
                     //Kurgin-style: делает трим по элементам массива //
-  //                  List<String> substr =  Arrays.asList(input).stream().map(s -> s.trim() ).collect(Collectors.toList());
+                    //                  List<String> substr =  Arrays.asList(input).stream().map(s -> s.trim() ).collect(Collectors.toList());
                     if (input.length != 4) //throw new IOException("Need 4 params only!\n");
-                    {System.out.println("Need 4 params only!\n");
+                    {
+                        System.out.println("Need 4 params only!\n");
                         String error = "Need 4 params only!\n";
                         fileManager.writer(error);
                         break;
                     } else {
 
-                        for (int i = 0; i < 4; i++)
-                            input [i] = input[i].trim();
-
+                        for (int i = 0; i < input.length; i++) {
+                            input[i] = input[i].trim();
+                        }
                         Order myObj = new Order(
-                                input [0],
-                                input [1],
-                                input [2],
-                                input [3]
+                                input[0],
+                                input[1],
+                                input[2],
+                                input[3]
                         );
                         String orderToFile = ordersDatabase.add(myObj);
                         fileManager.writer(orderToFile);
@@ -86,7 +87,7 @@ public class Ticketservice {
                         break;
                     }
                 }
-                case SHOWALL: { //TODO: не работает, разобраться
+                case SHOWALL: {
                     String result = ordersDatabase.getAll().toString();
                     if (result.length() == 0) {
                         fileManager.writer("Database is empty!");
@@ -99,8 +100,12 @@ public class Ticketservice {
                 case SHOW: {
                     String[] substr = data.substring(4).trim().split(",");
                     String idSubstr = substr[0];
-                    if (ordersDatabase.checkId(idSubstr)) //throw new IOException("Wrong id!");
+                    if (!ordersDatabase.checkId(idSubstr)) //throw new IOException("Wrong id!");
                     {
+                        System.out.println("id does not exist, please enter a valid id! \n");
+                        String error = "id does not exist, please enter a valid id! \n";
+                        fileManager.writer(error);
+                        } else {
                         String orderToFile = ordersDatabase.showValue(idSubstr);
                         fileManager.writer(orderToFile);
                     }

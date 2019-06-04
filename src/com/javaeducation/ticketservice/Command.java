@@ -5,6 +5,7 @@ public enum Command {
     String arguments = "";
 
     static Command getCommand(String str) {
+        str = str.toLowerCase();
         if (str.startsWith("add")) {
             Command cmd1 = ADD;
             cmd1.arguments = "add";
@@ -17,7 +18,7 @@ public enum Command {
             Command cmd3 = DELETE;
             cmd3.arguments = "delete";
             return cmd3;
-        }else if (str.startsWith("showAll")) {
+        }else if (str.startsWith("showall")) {
             Command cmd5 = SHOWALL;
             cmd5.arguments = "showAll";
             return cmd5;
